@@ -1,4 +1,6 @@
-# LINKS ハッカソン サンプル
+# links-hackathon-2026
+
+LINKS:POWER of DATA x DATA 2026 ハッカソン向けのサンプルです。
 
 地図で場所や建物を選び、Bedrock の Claude に質問する最小のサンプルです。
 
@@ -39,4 +41,14 @@ npm run deploy -w backend   # Lambda を作成し、URL が backend/cdk-outputs.
 ## 出典
 
 - 地図: [国土地理院タイル](https://maps.gsi.go.jp/development/ichiran.html)
-- 3D 都市モデル: [Project PLATEAU 千代田区（2023年度）](https://www.geospatial.jp/ckan/dataset/plateau-13101-chiyoda-ku-2023)
+- 地形: [国土地理院 標高タイル](https://maps.gsi.go.jp/development/ichiran.html)
+- 3D 都市モデル: [Project PLATEAU](https://www.mlit.go.jp/plateau/)（国土交通省）全国の建築物 LOD1 / LOD2（[PLATEAU 配信サービス](https://docs.plateauview.mlit.go.jp/)）
+
+## ライセンス
+
+このリポジトリのコードは [MIT License](LICENSE) です。
+同梱しているエージェントスキルは、それぞれの提供元のライセンスに従います。
+
+- `.claude/skills/navara-usage/` … [maplibre/navara](https://github.com/maplibre/navara)（`@navaramap/three` 同梱、MIT OR Apache-2.0）
+- `.claude/skills/plateau-api/` … [Project-PLATEAU/skills](https://github.com/Project-PLATEAU/skills)（MIT License）
+
