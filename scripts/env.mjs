@@ -1,8 +1,9 @@
 // .env を読み込む小さな道具（外部パッケージなし）
 //
 // Workshop Studio の「AWS CLI credentials」に表示される内容を、
-// Mac 用 / Windows(PowerShell) 用 / Windows(cmd) 用のどれでも“そのまま貼り付け”で読めるようにしています。
-//   export AWS_ACCESS_KEY_ID="..."      ← Mac / Linux
+// 4つのタブ（bash / fish / PowerShell / cmd）のどれでも“そのまま貼り付け”で読めるようにしています。
+//   export AWS_ACCESS_KEY_ID="..."      ← Linux or macOS (bash)
+//   set -gx AWS_ACCESS_KEY_ID "..."     ← Linux or macOS (fish)
 //   $Env:AWS_ACCESS_KEY_ID="..."        ← Windows PowerShell
 //   set AWS_ACCESS_KEY_ID=...           ← Windows コマンドプロンプト
 //   AWS_ACCESS_KEY_ID=...               ← ふつうの .env 形式
@@ -19,7 +20,11 @@ export function parseEnvFile(path = ENV_PATH) {
   for (const raw of readFileSync(path, "utf8").split(/\r?\n/)) {
     const line = raw.trim();
     if (!line || line.startsWith("#") || line.startsWith("[")) continue;
-    const m = line.match(/^(?:export\s+|set\s+|\$env:)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/i);
+    const m =
+      // fish:  set -gx KEY "value"
+      line.match(/^set\s+-[a-z]*x[a-z]*\s+([A-Za-z_][A-Za-z0-9_]*)\s+(.*)$/i) ??
+      // bash / PowerShell / cmd / .env:  [export |$Env:|set ]KEY=value
+      line.match(/^(?:export\s+|set\s+|\$env:)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/i);
     if (!m) continue;
     let value = m[2].trim();
     if (/^(["']).*\1$/.test(value)) value = value.slice(1, -1);
