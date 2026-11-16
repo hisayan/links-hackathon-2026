@@ -1,26 +1,37 @@
 #!/bin/sh
 # 🛡️ 安全コース: sandbox の中に Node.js / npm を入れる（sbxenv.yaml の postCreate から呼ばれる）
-# - 足りないものだけ入れる（Playwright kit を使うと Node.js 24 は入っているが npm が無い）
-# - sandbox は起動直後に裏で apt を動かしているので、空くまで待ってから実行する
+# - apt の Node.js（Debian 13 では v20）は古いので、nodejs.org から公式の LTS（v24）を入れる
+#   （nodejs.org は sandbox の balanced 設定で最初から通信が許可されている）
+# - すでに新しい Node.js と npm があれば何もしない
 set -e
 
-pkgs=""
-command -v node >/dev/null 2>&1 || pkgs="$pkgs nodejs"
-command -v npm  >/dev/null 2>&1 || pkgs="$pkgs npm"
+NODE_LINE=24
+BASE="https://nodejs.org/dist/latest-v${NODE_LINE}.x"
 
-if [ -z "$pkgs" ]; then
-  echo "Node.js $(node --version) / npm $(npm --version) はインストール済みです"
-  exit 0
+if command -v node >/dev/null 2>&1 && command -v npm >/dev/null 2>&1; then
+  major=$(node -p 'process.versions.node.split(".")[0]')
+  if [ "$major" -ge "$NODE_LINE" ]; then
+    echo "Node.js $(node --version) / npm $(npm --version) はインストール済みです"
+    exit 0
+  fi
 fi
 
-i=0
-until sudo apt-get update -qq 2>/dev/null; do
-  i=$((i + 1))
-  [ "$i" -ge 30 ] && { echo "apt-get update に失敗しました"; exit 1; }
-  echo "apt が使用中なので待っています…（${i}）"
-  sleep 5
-done
+case "$(uname -m)" in
+  x86_64 | amd64) arch=x64 ;;
+  aarch64 | arm64) arch=arm64 ;;
+  *) echo "この CPU（$(uname -m)）には対応していません"; exit 1 ;;
+esac
 
-# shellcheck disable=SC2086
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq -o DPkg::Lock::Timeout=300 $pkgs
-echo "✅ Node.js $(node --version) / npm $(npm --version) を使えるようにしました"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+# ファイル名とチェックサム（壊れていないかの確認用）を取ってくる
+line=$(curl -fsSL "$BASE/SHASUMS256.txt" | grep " node-v.*-linux-${arch}\.tar\.gz$")
+file=${line##* }
+echo "$file をダウンロードしています…"
+curl -fsSL -o "$tmp/$file" "$BASE/$file"
+(cd "$tmp" && echo "$line" | sha256sum -c --quiet -)
+
+sudo tar -xzf "$tmp/$file" -C /usr/local --strip-components=1 --no-same-owner
+hash -r 2>/dev/null || true
+echo "✅ Node.js $(/usr/local/bin/node --version) / npm $(/usr/local/bin/npm --version) を使えるようにしました"
