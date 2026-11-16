@@ -1,0 +1,19 @@
+# 🛡️ 安全コース（Docker Sandboxes）用の設定。`sbx env run` で使われます。
+# - sandbox の名前を固定
+# - 作成直後に Node.js / npm を sandbox の中へインストール（.env の読み込みと npm install に必要）
+# - 地図アプリのポート（2D: 5173 / 3D: 5174）を手元のブラウザから見えるようにする
+# ※ lifecycle のコマンドは「手元の PC」で実行され、sbx exec で sandbox の中に指示を送ります。
+schemaVersion: "1"
+name: links-hackathon-2026
+agent: claude
+workspace: .
+ports:
+  - sandbox: 5173
+    host: 5173
+  - sandbox: 5174
+    host: 5174
+lifecycle:
+  postCreate:
+    - name: Node.js / npm を sandbox にインストール
+      command: sbx exec links-hackathon-2026 sh scripts/sbx-setup.sh
+      timeout: 10m
