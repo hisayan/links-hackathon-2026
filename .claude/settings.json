@@ -1,4 +1,5 @@
 {
+  "awsCredentialExport": "node scripts/aws-credentials.mjs",
   "env": {
     "CLAUDE_CODE_USE_BEDROCK": "1",
     "AWS_REGION": "us-east-1",
@@ -11,7 +12,9 @@
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~*)",
       "Read(~/.ssh/**)",
-      "Read(~/.aws/**)"
+      "Read(~/.aws/**)",
+      "Read(./.env)",
+      "Edit(./.env)"
     ]
   },
   "enabledPlugins": {

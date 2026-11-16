@@ -7,6 +7,7 @@ backend/cdk-outputs.json
 # --- 秘密の情報（GitHub に上げると危険） ---
 .env
 .env.*
+!.env.example
 # 自分だけの設定（AWS の認証情報などを書く場所）
 .claude/settings.local.json
 

@@ -1,5 +1,6 @@
 // 手元の PC で動かすための小さなサーバー（http://localhost:8787）
 // フロントエンド（Vite）からは /api/ask で呼ばれます。
+import "./load-env.js"; // ← 最初に読む（AWS の認証情報を .env から）
 import { createServer } from "node:http";
 import { handleAsk } from "./http.js";
 
