@@ -26,3 +26,9 @@ lifecycle:
     - name: Node.js / npm を sandbox にインストール
       command: sbx exec links-hackathon-2026 sh scripts/sbx-setup.sh
       timeout: 10m
+    - name: AWS MCP サーバーへの通信を許可（この sandbox だけ）
+      command: sbx policy allow network --sandbox links-hackathon-2026 aws-mcp.us-east-1.api.aws:443
+      timeout: 1m
+    - name: AWS プラグイン（aws-core）を sandbox にインストール
+      command: sbx exec links-hackathon-2026 claude plugin install aws-core@anthropic-plugin-directory --scope project
+      timeout: 5m
