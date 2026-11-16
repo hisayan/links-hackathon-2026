@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LINKS ハッカソン サンプル（MapLibre / 2D）</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <aside id="panel">
+      <h1>🗺️ 地図に聞いてみよう</h1>
+      <p id="selected">地図をクリックして場所を選んでください</p>
+      <textarea id="question" rows="3">この場所の特徴と、まちづくりの課題を教えて</textarea>
+      <button id="ask" disabled>Claude に聞く</button>
+      <div id="answer"></div>
+    </aside>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "links-hackathon-sample",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "backend",
+    "web-maplibre",
+    "web-navara"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w backend",
+    "dev:maplibre": "npm run dev -w web-maplibre",
+    "dev:navara": "npm run dev -w web-navara"
+  }
+}

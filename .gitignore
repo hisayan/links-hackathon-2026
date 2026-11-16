@@ -1,0 +1,8 @@
+node_modules/
+dist/
+cdk.out/
+backend/cdk-outputs.json
+.env
+.env.*
+# 自分だけの設定（AWS の認証情報などを書く場所）。GitHub に上げない
+.claude/settings.local.json

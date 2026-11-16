@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LINKS ハッカソン サンプル（Navara / 3D）</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <aside id="panel">
+      <h1>🏙️ 建物に聞いてみよう</h1>
+      <label>建物の詳しさ:
+        <select id="lod">
+          <option value="lod1" selected>LOD1（箱型・軽い・全国）</option>
+          <option value="lod2">LOD2（屋根の形まで・重い）</option>
+        </select>
+      </label>
+      <p id="selected">建物（PLATEAU）をクリックしてください</p>
+      <textarea id="question" rows="3">この建物の特徴と、まちづくりで活かせそうな点を教えて</textarea>
+      <button id="ask" disabled>Claude に聞く</button>
+      <div id="answer"></div>
+    </aside>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
