@@ -8,6 +8,12 @@
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-haiku-5-5"
   },
   "permissions": {
+    "allow": [
+      "Bash(npm run bootstrap)",
+      "Bash(npm run deploy)",
+      "Bash(npm run deploy:navara)",
+      "Bash(npm run destroy)"
+    ],
     "deny": [
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~*)",

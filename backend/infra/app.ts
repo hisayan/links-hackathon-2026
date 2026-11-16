@@ -20,7 +20,7 @@ const app = new App();
 const web = app.node.tryGetContext("web") ?? "web-maplibre"; // -c web=web-navara で 3D 版
 const distDir = fileURLToPath(new URL(`../../${web}/dist`, import.meta.url));
 if (!existsSync(distDir)) {
-  throw new Error(`${web}/dist がありません。先に npm run build -w ${web} を実行してください`);
+  throw new Error(`${web}/dist がありません。リポジトリの一番上のフォルダーで npm run deploy（3D 版は npm run deploy:navara）を実行してください（ビルドも自動で行われます）`);
 }
 
 const stack = new Stack(app, "LinksHackathonApp", {

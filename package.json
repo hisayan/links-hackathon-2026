@@ -11,7 +11,7 @@
     "dev:backend": "npm run dev -w backend",
     "dev:maplibre": "npm run dev -w web-maplibre",
     "dev:navara": "npm run dev -w web-navara",
-    "bootstrap": "npm run bootstrap -w backend",
+    "bootstrap": "npm run build -w web-maplibre && npm run bootstrap -w backend",
     "deploy": "npm run build -w web-maplibre && npm run deploy -w backend -- -c web=web-maplibre",
     "deploy:navara": "npm run build -w web-navara && npm run deploy -w backend -- -c web=web-navara",
     "destroy": "npm run destroy -w backend"
