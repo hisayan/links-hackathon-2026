@@ -34,8 +34,19 @@ web-maplibre / navara ──▶  backend (/api/ask)  ──▶  Bedrock (Claude)
 
 ## AWS に公開する（デプロイ）
 
+`.env` の認証情報で、地図画面と backend をまとめて公開します（URL は 1 つ）。
+
 ```bash
-npm run deploy -w backend   # Lambda を作成し、URL が backend/cdk-outputs.json に出力される
+npm run bootstrap       # AWS アカウントで最初の 1 回だけ（約 1 分）
+npm run deploy          # 2D 版を公開（約 5 分）→ 最後に表示される AppUrl を開く
+npm run deploy:navara   # 3D 版を公開する場合（2D 版と入れ替わります）
+npm run destroy         # 片付け
+```
+
+```
+CloudFront（AppUrl）
+ ├─ /        → S3（地図画面）
+ └─ /api/*   → Lambda（backend → Bedrock）
 ```
 
 ## 出典

@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "tsx watch src/dev-server.ts",
     "ask": "tsx src/cli.ts",
-    "cdk": "cdk --app \"tsx infra/app.ts\"",
-    "deploy": "npm run cdk -- deploy --require-approval never --outputs-file cdk-outputs.json"
+    "cdk": "node ../scripts/with-env.mjs cdk",
+    "bootstrap": "npm run cdk -- bootstrap",
+    "deploy": "npm run cdk -- deploy --require-approval never --outputs-file cdk-outputs.json",
+    "destroy": "npm run cdk -- destroy --force"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1169.0"
