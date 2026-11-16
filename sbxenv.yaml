@@ -7,6 +7,11 @@ schemaVersion: "1"
 name: links-hackathon-2026
 agent: claude
 workspace: .
+# 🧪 上級オプション: Claude にブラウザ操作（画面の確認・テスト）をさせたいときは、
+#    次の2行の先頭の「# 」を消してから sandbox を作り直してください（sbx env rm → sbx env run）。
+#    Node.js 24 と Playwright が入ります（作成に1〜2分かかります）。
+# kits:
+#   - docker.io/sbx/playwright:1.61.1
 ports:
   - sandbox: 5173
     host: 5173
