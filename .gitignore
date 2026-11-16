@@ -1,8 +1,25 @@
+# --- 依存パッケージ・ビルド結果（npm install / build で何度でも作り直せる） ---
 node_modules/
 dist/
 cdk.out/
 backend/cdk-outputs.json
+
+# --- 秘密の情報（GitHub に上げると危険） ---
 .env
 .env.*
-# 自分だけの設定（AWS の認証情報などを書く場所）。GitHub に上げない
+# 自分だけの設定（AWS の認証情報などを書く場所）
 .claude/settings.local.json
+
+# --- ログ ---
+*.log
+npm-debug.log*
+
+# --- OS が勝手に作るファイル ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- エディター ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
