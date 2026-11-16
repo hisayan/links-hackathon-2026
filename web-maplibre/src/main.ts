@@ -1,4 +1,4 @@
-// ブラウザ側（客席）のコード。地図の表示と、backend への質問だけを担当します。
+// ブラウザで動く「画面側」のコード。地図の表示と、backend への質問だけを担当します。
 import { Map as MapLibreMap, Marker, NavigationControl } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -44,7 +44,7 @@ askBtn.addEventListener("click", async () => {
   askBtn.disabled = true;
   answerEl.textContent = "考え中…";
   try {
-    // /api/ask は backend（厨房）につながっています
+    // /api/ask は backend（サーバー側）につながっています
     const res = await fetch(`${import.meta.env.VITE_API_URL ?? "/api/ask"}`, {
       method: "POST",
       headers: { "content-type": "application/json" },

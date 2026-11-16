@@ -1,8 +1,8 @@
 // AWS に「お店を出す」ための設計図（CDK）
 //
 //   CloudFront（公開 URL は 1 つだけ）
-//    ├─ /        → S3（地図画面 = 客席。web-maplibre か web-navara の dist）
-//    └─ /api/*   → Lambda（backend = 厨房。Bedrock を呼ぶ）
+//    ├─ /        → S3（地図画面 = 画面側。web-maplibre か web-navara の dist）
+//    └─ /api/*   → Lambda（backend = サーバー側。Bedrock を呼ぶ）
 //
 // 地図画面は手元と同じく /api/ask を呼ぶだけなので、URL や CORS の設定は不要です。
 import { App, CfnOutput, Duration, RemovalPolicy, Stack } from "aws-cdk-lib";
@@ -27,7 +27,7 @@ const stack = new Stack(app, "LinksHackathonApp", {
   env: { region: process.env.AWS_REGION ?? "us-east-1" },
 });
 
-// --- 厨房: Bedrock を呼ぶ Lambda ---
+// --- サーバー側: Bedrock を呼ぶ Lambda ---
 const fn = new NodejsFunction(stack, "AskFunction", {
   entry: fileURLToPath(new URL("../src/lambda.ts", import.meta.url)),
   runtime: lambda.Runtime.NODEJS_24_X,
@@ -49,7 +49,7 @@ fn.addToRolePolicy(
 );
 const fnUrl = fn.addFunctionUrl({ authType: lambda.FunctionUrlAuthType.NONE });
 
-// --- 客席: 地図画面を置く S3（直接は公開せず CloudFront 経由のみ） ---
+// --- 画面側: 地図画面を置く S3（直接は公開せず CloudFront 経由のみ） ---
 const bucket = new s3.Bucket(stack, "WebBucket", {
   blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
   removalPolicy: RemovalPolicy.DESTROY, // ハッカソン用: 削除時に中身ごと消す

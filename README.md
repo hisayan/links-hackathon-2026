@@ -16,7 +16,7 @@ backend/       🍳 Claude に質問する部分（どちらの地図からも�
 
 ```bash
 npm install            # 1回だけ（必要な部品をダウンロード）
-npm run dev:backend    # ターミナル1: 厨房（backend）を起動
+npm run dev:backend    # ターミナル1: サーバー側（backend）を起動
 npm run dev:maplibre   # ターミナル2: 2D 地図 → http://localhost:5173
 # または
 npm run dev:navara     # ターミナル2: 3D 地図 → http://localhost:5174
@@ -27,7 +27,7 @@ AWS の認証情報（Workshop Studio で表示されるもの）が設定され
 ## しくみ
 
 ```
-ブラウザ（客席）            手元 or AWS（厨房）             AWS
+ブラウザ（画面側）          手元 or AWS（サーバー側）           AWS
 web-maplibre / navara ──▶  backend (/api/ask)  ──▶  Bedrock (Claude)
   地図・画面だけ             認証情報はここだけ
 ```
