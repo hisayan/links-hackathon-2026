@@ -1,4 +1,4 @@
-// ブラウザで動く「画面側」のコード。3D 地図（Navara）の表示と、backend への質問だけを担当します。
+// ブラウザで動くクライアントのコード。3D 地図（Navara）の表示と、backend への質問だけを担当します。
 import ThreeView, { Color, JAPAN_GSI_ELEVATION_DECODER } from "@navaramap/three";
 import {
   DefaultPlugin,

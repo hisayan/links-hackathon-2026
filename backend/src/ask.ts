@@ -1,4 +1,4 @@
-// Bedrock の Claude に質問する部分（サーバー側だけで動くコード）
+// Bedrock の Claude に質問する部分（サーバーだけで動くコード）
 // AWS の認証情報はここでだけ使われ、ブラウザには渡りません。
 import {
   BedrockRuntimeClient,
