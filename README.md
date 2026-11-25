@@ -4,6 +4,8 @@ LINKS:POWER of DATA x DATA 2026 ハッカソン向けのサンプルです。
 
 地図で場所や建物を選び、Bedrock の Claude に質問する最小のサンプルです。
 
+📖 使い方ガイド: https://hisayan.github.io/links-hackathon-2026-guide/
+
 ```
 web-maplibre/  🗺️ 2D の地図（MapLibre）……ガイド本編で使う
 web-navara/    🏙️ 3D の地図（Navara + PLATEAU）……付録 B で使う
